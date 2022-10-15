@@ -1,0 +1,85 @@
+
+import java.util.*;
+public class Main {
+
+	
+	public static void main(String[] args) {
+		/* Your class should be named Main.
+ 			* Read input as specified in the question.
+ 			* Print output as specified in the question.
+		*/
+
+		// Write your code here
+		Scanner sc = new Scanner(System.in);
+        int r = sc.nextInt();
+        int c = sc.nextInt();
+        
+        char[][] arr = new char[r][c];
+        
+        for(int i=0;i<r;i++){
+            String s = sc.next();
+            for(int j=0;j<c;j++){
+                arr[i][j] = s.charAt(j);
+            }
+        }
+        
+        int minRow = Integer.MAX_VALUE;
+        int maxRow = Integer.MIN_VALUE;
+        int minStart = Integer.MAX_VALUE;
+        int maxEnd = Integer.MIN_VALUE;
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                int countDot = 0;
+                if(arr[i][j]=='X'){
+                    countDot = countDots(arr,i,j,r,c);
+                }
+                if(countDot>=3){
+                    arr[i][j] = '_';
+                }
+                
+                if(arr[i][j]=='X'){
+                    if(minStart>j){
+                        minStart = j;
+                    }
+                    if(maxEnd<j){
+                        maxEnd = j;
+                    }
+                    if(minRow>i){
+                        minRow = i;
+                    }
+                    if(maxRow<i){
+                        maxRow = i;
+                    }
+                }
+            }
+        }	
+        
+        for(int i=minRow;i<=maxRow;i++){
+            for(int j=minStart;j<=maxEnd;j++){
+                if(arr[i][j]=='_')
+                    System.out.print(".");
+                else
+                	System.out.print(arr[i][j]);
+            }
+            System.out.println();
+        }
+	}
+    
+    public static int countDots(char[][] arr,int i,int j,int r,int c){
+        int count = 0;
+        if(i+1>=r || i+1<r && arr[i+1][j]=='.')
+            count++;
+        
+        if(i-1<0 || i-1>=0 && arr[i-1][j]=='.')
+            count++;
+        
+        if(j+1>=c || j+1<c && arr[i][j+1]=='.')
+            count++;
+        
+        if(j-1<0 || j-1>=0 && arr[i][j-1]=='.')
+            count++;
+        
+        return count;
+    }
+
+}
