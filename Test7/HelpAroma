@@ -1,0 +1,72 @@
+import java.util.Scanner;
+
+public class Main {
+
+	
+	public static void main(String[] args) {
+		/* Your class should be named Main.
+ 			* Read input as specified in the question.
+ 			* Print output as specified in the question.
+		*/
+
+		// Write your code here
+		
+        Scanner sc = new Scanner(System.in);
+        String word = sc.next();
+        
+        int k = sc.nextInt();
+        
+        int[][] arr = new int[word.length()+1][26];
+        
+        for(int i=1;i<=word.length();i++){
+            for(int j=0;j<26;j++){
+                arr[i][j] = arr[i-1][j];
+            }
+            arr[i][word.charAt(i-1)-'a']++;
+        }
+        
+        for(int i=0;i<k;i++){
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            int c = sc.nextInt();
+            int d = sc.nextInt();
+            boolean check = true;
+            for(int j=0;j<26;j++){
+                if(arr[a-1][j]-arr[b][j] != arr[c-1][j]-arr[d][j]){
+                    check = false;
+                    break;
+                }
+            }
+            
+            System.out.println(check);
+        }
+        
+	}
+   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
